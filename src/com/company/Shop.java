@@ -18,7 +18,7 @@ public class Shop implements Runnable {
             if (between.toSeconds() == iterator) {
                 System.out.println("Начало перерыва в магазине");
                 state = false;
-                iterator += iterator+10;
+                iterator += iterator + 10;
                 counter = 0;
                 try {
                     Thread.sleep(10000);
