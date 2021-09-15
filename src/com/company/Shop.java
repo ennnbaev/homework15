@@ -16,30 +16,45 @@ public class Shop implements Runnable {
             LocalDateTime end = LocalDateTime.now();
             Duration between = Duration.between(start, end);
             if (between.toSeconds() == iterator) {
+                System.out.println("Начало перерыва в магазине");
                 state = false;
-                iterator += 15;
+                iterator += iterator+10;
                 counter = 0;
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println("Перерыв закончен");
             }
         }
     }
 
-    static void state(Thread f) throws InterruptedException {
+    //сначала проверяю открыт ли магазин и сколько в нем клиентов
+    static void state() throws InterruptedException {
         if (state && counter < 5) {
             counter++;
+            // далее через определенный отрезок времени постоянно проверяю состояние магазина и поток засыпает
             int counterClient = 0;
-            System.out.println("Users " + f.getName());
-            while (counterClient != 100) {
+            int maxTime = 100;
+            int time = ((int) (1 + Math.random() * 9) * 10);
+            System.out.println("Посититель зашел в магазин");
+            while (true) {
                 if (state) {
-                    Thread.sleep(((int) (1 + Math.random() *9))*10);
+                    Thread.sleep(time);
                     counterClient++;
+                } else {
+                    System.out.println("Посититель вышел так-как перерыв");
+                    counter--;
+                    break;
+                }
+                if (counterClient == maxTime) {
+                    System.out.println("Посититель вышел из магазина");
+                    counter--;
+                    break;
                 }
             }
-            counter--;
+
         } else {
             System.out.println("В магазине нет места или он закрыт");
         }

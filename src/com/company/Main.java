@@ -10,18 +10,16 @@ public class Main {
         Thread shop1 = new Thread(shop);
         shop1.start();
         int iterator = (int) (2 + Math.random() * 6);
-        int name = 1;
         LocalTime start = LocalTime.now();
+        //с помощью duration запускаю нового поситителя 1 раз в 2-5 секунд в магазин
         while (true) {
             LocalTime end = LocalTime.now();
             Duration duration = Duration.between(start, end);
             if (duration.toSeconds() == iterator) {
                 iterator += (int) (2 + Math.random() * 6);
-                Runnable c = new Client(String.valueOf(name));
+                Runnable c = new Client();
                 Thread b = new Thread(c);
                 b.start();
-                name++;
-
             }
         }
     }

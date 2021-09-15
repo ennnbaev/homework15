@@ -1,17 +1,11 @@
 package com.company;
 
 public class Client implements Runnable {
-    Thread trd;
-
-    Client(String name) {
-        trd = new Thread(name);
-        trd.start();
-    }
-
+    //переопределяю метод и вызываю в нем статический метод Shop.state();
     @Override
     public void run() {
         try {
-            Shop.state(trd);
+            Shop.state();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
